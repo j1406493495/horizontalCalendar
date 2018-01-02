@@ -1,12 +1,16 @@
-package com.abc.agency.baseui.ui.view.calendar;
+package com.example.calendar.view;
 
 import android.content.Context;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.abc.agency.baseui.R;
 import com.blankj.utilcode.util.TimeUtils;
+import com.example.calendar.R;
+import com.example.calendar.utils.ViewFactory;
+import com.example.calendar.view.CalendarItemView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,6 +23,7 @@ public class CalendarView extends LinearLayout{
     private static final String TAG = "CalendarView";
 
     private Context mContext;
+    private ViewFactory mViewFactory;
     private ArrayList<CalendarItemView> mItemViewList = new ArrayList<>();
 
     private String formatDayName = "EEE";
@@ -40,15 +45,16 @@ public class CalendarView extends LinearLayout{
     }
 
     private void initView() {
-        inflate(mContext, R.layout.view_calendar, this);
+        mViewFactory = ViewFactory.getInstance(mContext);
+        View view = inflate(mContext, R.layout.view_calendar, this);
 
-        mItemViewList.add((CalendarItemView)findViewById(R.id.mon));
-        mItemViewList.add((CalendarItemView)findViewById(R.id.tue));
-        mItemViewList.add((CalendarItemView)findViewById(R.id.wed));
-        mItemViewList.add((CalendarItemView)findViewById(R.id.thu));
-        mItemViewList.add((CalendarItemView)findViewById(R.id.fri));
-        mItemViewList.add((CalendarItemView)findViewById(R.id.sat));
-        mItemViewList.add((CalendarItemView)findViewById(R.id.sun));
+        mItemViewList.add((CalendarItemView) mViewFactory.getView(view, R.id.mon));
+        mItemViewList.add((CalendarItemView) mViewFactory.getView(view, R.id.tue));
+        mItemViewList.add((CalendarItemView) mViewFactory.getView(view, R.id.wed));
+        mItemViewList.add((CalendarItemView) mViewFactory.getView(view, R.id.thu));
+        mItemViewList.add((CalendarItemView) mViewFactory.getView(view, R.id.fri));
+        mItemViewList.add((CalendarItemView) mViewFactory.getView(view, R.id.sat));
+        mItemViewList.add((CalendarItemView) mViewFactory.getView(view, R.id.sun));
     }
 
     private boolean isDateEqual(Date firstDate, Date secondDate) {
@@ -66,14 +72,14 @@ public class CalendarView extends LinearLayout{
         int realPosition = position * 7;
         for (int i = 0; i < 7; i++) {
             Date date = dateList.get(realPosition + i);
-            mItemViewList.get(i).setDayName(DateFormat.format(formatDayName, date).toString());
-            mItemViewList.get(i).setDayNumber(DateFormat.format(formatDayNumber, date).toString());
-            mItemViewList.get(i).setMonthName(DateFormat.format(formatMonth, date).toString());
+            mItemViewList.get(i).setDay(DateFormat.format(formatDayName, date).toString());
+            mItemViewList.get(i).setDay(DateFormat.format(formatDayNumber, date).toString());
+            mItemViewList.get(i).setMonth(DateFormat.format(formatMonth, date).toString());
             mItemViewList.get(i).setDate(date);
 
             if (isDateEqual(date, selectDate)) {
                 mItemViewList.get(i).findViewById(R.id.calendar_item).setBackgroundResource(R.drawable.ic_calendar_select);
-                mItemViewList.get(i).setTextColor(getResources().getColor(R.color.b9));
+                mItemViewList.get(i).setTextColor(getResources().getColor(R.color.b7));
             } else {
                 if (TimeUtils.isToday(date)) {
                     mItemViewList.get(i).findViewById(R.id.calendar_item).setBackgroundResource(R.drawable.ic_calendar_today);

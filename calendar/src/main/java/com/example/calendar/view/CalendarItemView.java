@@ -1,4 +1,4 @@
-package com.abc.agency.baseui.ui.view.calendar;
+package com.example.calendar.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -6,25 +6,27 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.abc.agency.baseui.R;
-import com.hwangjr.rxbus.RxBus;
+import com.example.calendar.R;
+import com.example.calendar.utils.ViewFactory;
 
 import java.util.Date;
 
 /**
  * Created by Woong on 2017/5/18.
+ * calendar item view
  */
-
 public class CalendarItemView extends LinearLayout implements View.OnClickListener{
     private static final String TAG = "CalendarItemView";
 
     public static final String DATE_SELECTED = "date_selected";
     
     private Context mContext;
+    private ViewFactory mViewFactory;
     private Date mDate;
-    private TextView mTvDayName;
-    private TextView mTvDayNumber;
-    private TextView mTvMonthName;
+
+    private TextView tvWeek;
+    private TextView tvDay;
+    private TextView tvMonth;
     private LinearLayout mllCalendarItem;
 
     public CalendarItemView(Context context) {
@@ -42,42 +44,43 @@ public class CalendarItemView extends LinearLayout implements View.OnClickListen
     }
 
     private void init() {
-        inflate(mContext, R.layout.item_calendar, this);
-        mllCalendarItem = (LinearLayout) findViewById(R.id.calendar_item);
-        mTvDayName = (TextView) findViewById(R.id.dayName);
-        mTvDayNumber = (TextView) findViewById(R.id.dayNumber);
-        mTvMonthName = (TextView) findViewById(R.id.monthName);
+        mViewFactory = ViewFactory.getInstance(mContext);
+
+        View view = inflate(mContext, R.layout.item_calendar, this);
+        mllCalendarItem = mViewFactory.getView(view, R.id.ll_calendar_item);
+        tvWeek = mViewFactory.getView(view, R.id.tv_week);
+        tvDay = mViewFactory.getView(view, R.id.tv_day);
+        tvMonth = mViewFactory.getView(view, R.id.tv_month);
 
         setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        RxBus.get().post(DATE_SELECTED, mDate);
     }
 
     /**
      * 设置当前星期
-     * @param dayName
+     * @param week
      */
-    public void setDayName(String dayName) {
-        mTvDayName.setText(dayName);
+    public void setWeek(String week) {
+        tvWeek.setText(week);
     }
 
     /**
      * 设置当前日期
-     * @param dayNumber
+     * @param day
      */
-    public void setDayNumber(String dayNumber) {
-        mTvDayNumber.setText(dayNumber);
+    public void setDay(String day) {
+        tvDay.setText(day);
     }
 
     /**
      * 设置当前月份
-     * @param monthName
+     * @param month
      */
-    public void setMonthName(String monthName) {
-        mTvMonthName.setText(monthName);
+    public void setMonth(String month) {
+        tvMonth.setText(month);
     }
 
     /**
@@ -93,9 +96,9 @@ public class CalendarItemView extends LinearLayout implements View.OnClickListen
      * @param color
      */
     public void setTextColor(int color) {
-        mTvDayName.setTextColor(color);
-        mTvDayNumber.setTextColor(color);
-        mTvMonthName.setTextColor(color);
+        tvWeek.setTextColor(color);
+        tvDay.setTextColor(color);
+        tvMonth.setTextColor(color);
     }
 }
 

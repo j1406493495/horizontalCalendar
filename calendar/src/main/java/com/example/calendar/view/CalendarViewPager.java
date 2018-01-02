@@ -1,4 +1,4 @@
-package com.abc.agency.baseui.ui.view.calendar;
+package com.example.calendar.view;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.TimeUtils;
+import com.example.calendar.listener.CalendarListener;
+import com.example.calendar.view.CalendarItemView;
+import com.example.calendar.view.CalendarView;
 import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
@@ -53,24 +56,16 @@ public class CalendarViewPager extends ViewPager{
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        RxBus.get().register(this);
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        RxBus.get().unregister(this);
         if (mCalendarViewList != null) {
             mCalendarViewList.clear();
         }
     }
 
-    @Subscribe(
-            thread = EventThread.MAIN_THREAD,
-            tags = {
-                    @Tag(CalendarItemView.DATE_SELECTED)
-            }
-    )
     public void onDateSelectedChanged(Date date) {
         mCalendarListener.OnDateSelected(date);
         mSelectedDate = date;
