@@ -6,11 +6,9 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.blankj.utilcode.util.TimeUtils;
 import com.example.calendar.listener.CalendarListener;
 import com.example.calendar.listener.NotifyListener;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;

@@ -3,12 +3,8 @@ package com.example.wong.horizontalcalendar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
-
-import com.blankj.utilcode.util.ToastUtils;
 import com.example.calendar.listener.CalendarListener;
-import com.example.calendar.utils.ViewFactory;
 import com.example.calendar.view.CalendarViewPager;
-
 import java.util.Date;
 
 /**

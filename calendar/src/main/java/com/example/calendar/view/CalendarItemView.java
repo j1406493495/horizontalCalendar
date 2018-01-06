@@ -5,12 +5,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.example.calendar.R;
-import com.example.calendar.listener.CalendarListener;
 import com.example.calendar.listener.NotifyListener;
 import com.example.calendar.utils.ViewFactory;
-
 import java.util.Date;
 
 /**

@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import com.blankj.utilcode.util.TimeUtils;
 import com.example.calendar.R;
-import com.example.calendar.listener.CalendarListener;
 import com.example.calendar.listener.NotifyListener;
 import com.example.calendar.utils.ViewFactory;
 import java.util.ArrayList;
