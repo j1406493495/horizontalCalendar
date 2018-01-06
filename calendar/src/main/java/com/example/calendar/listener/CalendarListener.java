@@ -4,8 +4,8 @@ import java.util.Date;
 
 /**
  * Created by Woong on 2017/5/19.
+ * @author woong
  */
-
 public interface CalendarListener {
-    void OnDateSelected(Date date);
+    void onDateSelected(Date date);
 }

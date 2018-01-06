@@ -7,22 +7,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.calendar.R;
+import com.example.calendar.listener.CalendarListener;
+import com.example.calendar.listener.NotifyListener;
 import com.example.calendar.utils.ViewFactory;
 
 import java.util.Date;
 
 /**
  * Created by Woong on 2017/5/18.
- * calendar item view
+ * @author woong
  */
 public class CalendarItemView extends LinearLayout implements View.OnClickListener{
     private static final String TAG = "CalendarItemView";
 
-    public static final String DATE_SELECTED = "date_selected";
-    
     private Context mContext;
     private ViewFactory mViewFactory;
     private Date mDate;
+    private NotifyListener mNotifyListener;
 
     private TextView tvWeek;
     private TextView tvDay;
@@ -57,6 +58,13 @@ public class CalendarItemView extends LinearLayout implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
+        if (mNotifyListener != null) {
+            mNotifyListener.onDateClick(mDate);
+        }
+    }
+
+    public void setNotifyListener(NotifyListener notifyListener) {
+        mNotifyListener = notifyListener;
     }
 
     /**

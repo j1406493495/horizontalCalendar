@@ -9,12 +9,7 @@ import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.TimeUtils;
 import com.example.calendar.listener.CalendarListener;
-import com.example.calendar.view.CalendarItemView;
-import com.example.calendar.view.CalendarView;
-import com.hwangjr.rxbus.RxBus;
-import com.hwangjr.rxbus.annotation.Subscribe;
-import com.hwangjr.rxbus.annotation.Tag;
-import com.hwangjr.rxbus.thread.EventThread;
+import com.example.calendar.listener.NotifyListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,8 +18,8 @@ import java.util.GregorianCalendar;
 
 /**
  * Created by Woong on 2017/5/18.
+ * @author woong
  */
-
 public class CalendarViewPager extends ViewPager{
     private static final String TAG = "CalendarViewPager";
     
@@ -67,14 +62,23 @@ public class CalendarViewPager extends ViewPager{
     }
 
     public void onDateSelectedChanged(Date date) {
-        mCalendarListener.OnDateSelected(date);
         mSelectedDate = date;
         mPageAdapter.notifyDataSetChanged();
+
+        if (mCalendarListener != null) {
+            mCalendarListener.onDateSelected(date);
+        }
     }
 
     private void initView() {
         for (int i = 0; i < 3; i++) {
             CalendarView calendarView = new CalendarView(mContext);
+            calendarView.setNotifyListener(new NotifyListener() {
+                @Override
+                public void onDateClick(Date date) {
+                    onDateSelectedChanged(date);
+                }
+            });
             mCalendarViewList.add(calendarView);
         }
 

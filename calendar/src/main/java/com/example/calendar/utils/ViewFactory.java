@@ -5,7 +5,7 @@ import android.view.View;
 
 /**
  * Created by wong on 2018/1/2.
- * view Factory
+ * @author woong
  */
 public class ViewFactory extends View{
     private ViewFactory(Context context) {

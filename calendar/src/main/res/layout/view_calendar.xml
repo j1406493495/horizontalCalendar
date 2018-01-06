@@ -4,43 +4,43 @@
               android:layout_height="match_parent"
               android:orientation="horizontal">
 
-    <com.abc.agency.baseui.ui.widget.calendar.CalendarItemView
+    <com.example.calendar.view.CalendarItemView
         android:id="@+id/mon"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"/>
 
-    <com.abc.agency.baseui.ui.widget.calendar.CalendarItemView
+    <com.example.calendar.view.CalendarItemView
         android:id="@+id/tue"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"/>
 
-    <com.abc.agency.baseui.ui.widget.calendar.CalendarItemView
+    <com.example.calendar.view.CalendarItemView
         android:id="@+id/wed"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"/>
 
-    <com.abc.agency.baseui.ui.widget.calendar.CalendarItemView
+    <com.example.calendar.view.CalendarItemView
         android:id="@+id/thu"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"/>
 
-    <com.abc.agency.baseui.ui.widget.calendar.CalendarItemView
+    <com.example.calendar.view.CalendarItemView
         android:id="@+id/fri"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"/>
 
-    <com.abc.agency.baseui.ui.widget.calendar.CalendarItemView
+    <com.example.calendar.view.CalendarItemView
         android:id="@+id/sat"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"/>
 
-    <com.abc.agency.baseui.ui.widget.calendar.CalendarItemView
+    <com.example.calendar.view.CalendarItemView
         android:id="@+id/sun"
         android:layout_width="0dp"
         android:layout_height="match_parent"

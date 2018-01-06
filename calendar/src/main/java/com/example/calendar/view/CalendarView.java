@@ -5,20 +5,18 @@ import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
-
-import com.abc.agency.baseui.R;
 import com.blankj.utilcode.util.TimeUtils;
 import com.example.calendar.R;
+import com.example.calendar.listener.CalendarListener;
+import com.example.calendar.listener.NotifyListener;
 import com.example.calendar.utils.ViewFactory;
-import com.example.calendar.view.CalendarItemView;
-
 import java.util.ArrayList;
 import java.util.Date;
 
 /**
  * Created by Woong on 2017/5/18.
+ * @author woong
  */
-
 public class CalendarView extends LinearLayout{
     private static final String TAG = "CalendarView";
 
@@ -26,8 +24,8 @@ public class CalendarView extends LinearLayout{
     private ViewFactory mViewFactory;
     private ArrayList<CalendarItemView> mItemViewList = new ArrayList<>();
 
-    private String formatDayName = "EEE";
-    private String formatDayNumber = "dd";
+    private String formatWeek = "EEE";
+    private String formatDay = "dd";
     private String formatMonth = "MMM";
 
     public CalendarView(Context context) {
@@ -63,6 +61,12 @@ public class CalendarView extends LinearLayout{
         return firstString.equals(secondString);
     }
 
+    public void setNotifyListener(NotifyListener notifyListener) {
+        for (CalendarItemView calendarItemView : mItemViewList) {
+            calendarItemView.setNotifyListener(notifyListener);
+        }
+    }
+
     /**
      * 设置页面日期信息
      * @param dateList 日期列表
@@ -72,23 +76,22 @@ public class CalendarView extends LinearLayout{
         int realPosition = position * 7;
         for (int i = 0; i < 7; i++) {
             Date date = dateList.get(realPosition + i);
-            mItemViewList.get(i).setDay(DateFormat.format(formatDayName, date).toString());
-            mItemViewList.get(i).setDay(DateFormat.format(formatDayNumber, date).toString());
+            mItemViewList.get(i).setWeek(DateFormat.format(formatWeek, date).toString());
+            mItemViewList.get(i).setDay(DateFormat.format(formatDay, date).toString());
             mItemViewList.get(i).setMonth(DateFormat.format(formatMonth, date).toString());
             mItemViewList.get(i).setDate(date);
 
             if (isDateEqual(date, selectDate)) {
-                mItemViewList.get(i).findViewById(R.id.calendar_item).setBackgroundResource(R.drawable.ic_calendar_select);
+                mItemViewList.get(i).findViewById(R.id.ll_calendar_item).setBackgroundResource(R.drawable.ic_calendar_select);
                 mItemViewList.get(i).setTextColor(getResources().getColor(R.color.b7));
             } else {
                 if (TimeUtils.isToday(date)) {
-                    mItemViewList.get(i).findViewById(R.id.calendar_item).setBackgroundResource(R.drawable.ic_calendar_today);
+                    mItemViewList.get(i).findViewById(R.id.ll_calendar_item).setBackgroundResource(R.drawable.ic_calendar_today);
                 } else {
-                    mItemViewList.get(i).findViewById(R.id.calendar_item).setBackgroundResource(R.drawable.bg_transparent);
+                    mItemViewList.get(i).findViewById(R.id.ll_calendar_item).setBackgroundResource(R.color.transparent);
                 }
                 mItemViewList.get(i).setTextColor(getResources().getColor(R.color.b3));
             }
         }
     }
-
 }
