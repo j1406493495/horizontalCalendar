@@ -1,11 +1,16 @@
 package com.example.calendar.view;
 
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.blankj.utilcode.util.TimeUtils;
 import com.example.calendar.R;
+import com.example.calendar.adapter.BaseItemAdapter;
+import com.example.calendar.adapter.ItemAdapterState;
 import com.example.calendar.listener.NotifyListener;
 import com.example.calendar.utils.ViewFactory;
 import java.util.Date;
@@ -17,15 +22,9 @@ import java.util.Date;
 public class CalendarItemView extends LinearLayout implements View.OnClickListener{
     private static final String TAG = "CalendarItemView";
 
-    private Context mContext;
-    private ViewFactory mViewFactory;
     private Date mDate;
     private NotifyListener mNotifyListener;
-
-    private TextView tvWeek;
-    private TextView tvDay;
-    private TextView tvMonth;
-    private LinearLayout mllCalendarItem;
+    private BaseItemAdapter mBaseItemAdapter;
 
     public CalendarItemView(Context context) {
         this(context, null);
@@ -37,19 +36,6 @@ public class CalendarItemView extends LinearLayout implements View.OnClickListen
 
     public CalendarItemView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mContext = context;
-        init();
-    }
-
-    private void init() {
-        mViewFactory = ViewFactory.getInstance(mContext);
-
-        View view = inflate(mContext, R.layout.item_calendar, this);
-        mllCalendarItem = mViewFactory.getView(view, R.id.ll_calendar_item);
-        tvWeek = mViewFactory.getView(view, R.id.tv_week);
-        tvDay = mViewFactory.getView(view, R.id.tv_day);
-        tvMonth = mViewFactory.getView(view, R.id.tv_month);
-
         setOnClickListener(this);
     }
 
@@ -65,45 +51,21 @@ public class CalendarItemView extends LinearLayout implements View.OnClickListen
     }
 
     /**
-     * 设置当前星期
-     * @param week
+     * 设置Adapter
      */
-    public void setWeek(String week) {
-        tvWeek.setText(week);
-    }
-
-    /**
-     * 设置当前日期
-     * @param day
-     */
-    public void setDay(String day) {
-        tvDay.setText(day);
-    }
-
-    /**
-     * 设置当前月份
-     * @param month
-     */
-    public void setMonth(String month) {
-        tvMonth.setText(month);
+    public void setAdapter(BaseItemAdapter baseItemAdapter) {
+        mBaseItemAdapter = baseItemAdapter;
     }
 
     /**
      * 设置Date
      * @param date
      */
-    public void setDate(Date date) {
+    public void setDate(Date date, @ItemAdapterState int dateState) {
         mDate = date;
-    }
-
-    /**
-     * 设置字体颜色
-     * @param color
-     */
-    public void setTextColor(int color) {
-        tvWeek.setTextColor(color);
-        tvDay.setTextColor(color);
-        tvMonth.setTextColor(color);
+        if (mBaseItemAdapter != null) {
+            mBaseItemAdapter.bindView(date, dateState);
+        }
     }
 }
 

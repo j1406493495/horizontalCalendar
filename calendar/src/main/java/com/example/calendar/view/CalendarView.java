@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import com.blankj.utilcode.util.TimeUtils;
 import com.example.calendar.R;
+import com.example.calendar.adapter.BaseItemAdapter;
+import com.example.calendar.adapter.ItemAdapterState;
 import com.example.calendar.listener.NotifyListener;
 import com.example.calendar.utils.ViewFactory;
 import java.util.ArrayList;
@@ -23,9 +25,6 @@ public class CalendarView extends LinearLayout{
     private ViewFactory mViewFactory;
     private ArrayList<CalendarItemView> mItemViewList = new ArrayList<>();
 
-    private String formatWeek = "EEE";
-    private String formatDay = "dd";
-    private String formatMonth = "MMM";
 
     public CalendarView(Context context) {
         this(context, null);
@@ -66,6 +65,12 @@ public class CalendarView extends LinearLayout{
         }
     }
 
+    public void setAdapter(BaseItemAdapter baseItemAdapter) {
+        for (CalendarItemView calendarItemView : mItemViewList) {
+            calendarItemView.setAdapter(baseItemAdapter);
+        }
+    }
+
     /**
      * 设置页面日期信息
      * @param dateList 日期列表
@@ -75,21 +80,15 @@ public class CalendarView extends LinearLayout{
         int realPosition = position * 7;
         for (int i = 0; i < 7; i++) {
             Date date = dateList.get(realPosition + i);
-            mItemViewList.get(i).setWeek(DateFormat.format(formatWeek, date).toString());
-            mItemViewList.get(i).setDay(DateFormat.format(formatDay, date).toString());
-            mItemViewList.get(i).setMonth(DateFormat.format(formatMonth, date).toString());
-            mItemViewList.get(i).setDate(date);
 
             if (isDateEqual(date, selectDate)) {
-                mItemViewList.get(i).findViewById(R.id.ll_calendar_item).setBackgroundResource(R.drawable.ic_calendar_select);
-                mItemViewList.get(i).setTextColor(getResources().getColor(R.color.b7));
+                mItemViewList.get(i).setDate(date, ItemAdapterState.STATE_SELECT);
             } else {
                 if (TimeUtils.isToday(date)) {
-                    mItemViewList.get(i).findViewById(R.id.ll_calendar_item).setBackgroundResource(R.drawable.ic_calendar_today);
+                    mItemViewList.get(i).setDate(date, ItemAdapterState.STATE_TODAY);
                 } else {
-                    mItemViewList.get(i).findViewById(R.id.ll_calendar_item).setBackgroundResource(R.color.transparent);
+                    mItemViewList.get(i).setDate(date, ItemAdapterState.STATE_NORMAL);
                 }
-                mItemViewList.get(i).setTextColor(getResources().getColor(R.color.b3));
             }
         }
     }

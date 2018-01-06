@@ -12,6 +12,7 @@ import java.util.Date;
  */
 public class MainActivity extends AppCompatActivity {
     CalendarViewPager mCalendarViewPager;
+    DefaultItemAdapter mDefaultItemAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +22,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        mDefaultItemAdapter = new DefaultItemAdapter(this);
         mCalendarViewPager = (CalendarViewPager) findViewById(R.id.calendar_view_pager);
+        mCalendarViewPager.setAdapter(mDefaultItemAdapter);
         mCalendarViewPager.setCalendarListener(new CalendarListener() {
             @Override
             public void onDateSelected(Date date) {

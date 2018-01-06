@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import com.blankj.utilcode.util.TimeUtils;
+import com.example.calendar.adapter.BaseItemAdapter;
 import com.example.calendar.listener.CalendarListener;
 import com.example.calendar.listener.NotifyListener;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class CalendarViewPager extends ViewPager{
     
     private Context mContext;
     private CalendarListener mCalendarListener;
+    private BaseItemAdapter mBaseItemAdapter;
     private MyPageAdapter mPageAdapter;
     private Date mSelectedDate;
     private ArrayList<CalendarView> mCalendarViewList = new ArrayList<>();
@@ -71,6 +73,7 @@ public class CalendarViewPager extends ViewPager{
     private void initView() {
         for (int i = 0; i < 3; i++) {
             CalendarView calendarView = new CalendarView(mContext);
+            calendarView.setAdapter(mBaseItemAdapter);
             calendarView.setNotifyListener(new NotifyListener() {
                 @Override
                 public void onDateClick(Date date) {
@@ -150,6 +153,14 @@ public class CalendarViewPager extends ViewPager{
      */
     public void setCalendarListener(CalendarListener calendarListener) {
         mCalendarListener = calendarListener;
+    }
+
+    /**
+     * 自定义日期item布局
+     * @param baseItemAdapter
+     */
+    public void setAdapter(BaseItemAdapter baseItemAdapter) {
+        mBaseItemAdapter = baseItemAdapter;
     }
 
     public class MyPageAdapter extends PagerAdapter {
