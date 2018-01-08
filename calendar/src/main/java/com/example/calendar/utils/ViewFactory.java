@@ -25,15 +25,6 @@ public class ViewFactory extends View{
     }
 
     @SuppressWarnings("unchecked")
-    public final <E extends View> E getView (int id) {
-        try {
-            return (E) findViewById(id);
-        } catch (ClassCastException e) {
-            throw e;
-        }
-    }
-
-    @SuppressWarnings("unchecked")
     public final <E extends View> E getView (View view, int id) {
         try {
             return (E) view.findViewById(id);

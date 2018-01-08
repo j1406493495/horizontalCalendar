@@ -2,11 +2,15 @@ package com.example.wong.horizontalcalendar;
 
 import android.content.Context;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.example.calendar.R;
 import com.example.calendar.adapter.BaseItemAdapter;
 import com.example.calendar.adapter.ItemAdapterState;
@@ -23,12 +27,6 @@ public class DefaultItemAdapter extends BaseItemAdapter {
     private String formatDay = "dd";
     private String formatMonth = "MMM";
 
-    private TextView tvWeek;
-    private TextView tvDay;
-    private TextView tvMonth;
-    private LinearLayout llCalendarItem;
-
-    private ViewFactory mViewFactory;
     private Context mContext;
 
     public DefaultItemAdapter(Context context) {
@@ -37,65 +35,63 @@ public class DefaultItemAdapter extends BaseItemAdapter {
     }
 
     @Override
-    public View getView() {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_calendar, null);
-        mViewFactory = ViewFactory.getInstance(mContext);
-        llCalendarItem = mViewFactory.getView(view, R.id.ll_calendar_item);
-        tvWeek = mViewFactory.getView(view, R.id.tv_week);
-        tvDay = mViewFactory.getView(view, R.id.tv_day);
-        tvMonth = mViewFactory.getView(view, R.id.tv_month);
+    public int getCount() {
+        return 7;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_calendar, parent, false);
         return view;
     }
 
     @Override
-    public void bindView(Date date, int dateState) {
-        setWeek(DateFormat.format(formatWeek, date).toString());
-        setDay(DateFormat.format(formatDay, date).toString());
-        setMonth(DateFormat.format(formatMonth, date).toString());
+    public void bindView(Date date, View view, int dateState) {
+        DefaultDateViewHolder viewHolder = new DefaultDateViewHolder(view);
+        viewHolder.tvWeek.setText(DateFormat.format(formatWeek, date).toString());
+        viewHolder.tvDay.setText(DateFormat.format(formatDay, date).toString());
+        viewHolder.tvMonth.setText(DateFormat.format(formatMonth, date).toString());
 
         if (dateState == ItemAdapterState.STATE_NORMAL) {
-            llCalendarItem.findViewById(R.id.ll_calendar_item).setBackgroundResource(R.color.transparent);
-            setTextColor(mContext.getResources().getColor(R.color.b3));
+            viewHolder.llCalendarItem.setBackgroundResource(R.color.transparent);
+            viewHolder.setTextColor(mContext.getResources().getColor(R.color.b3));
         } else if (dateState == ItemAdapterState.STATE_SELECT) {
-            llCalendarItem.setBackgroundResource(R.drawable.ic_calendar_select);
-            setTextColor(mContext.getResources().getColor(R.color.b7));
+            viewHolder.llCalendarItem.setBackgroundResource(R.drawable.ic_calendar_select);
+            viewHolder.setTextColor(mContext.getResources().getColor(R.color.b7));
         } else if (dateState == ItemAdapterState.STATE_TODAY) {
-            llCalendarItem.setBackgroundResource(R.drawable.ic_calendar_today);
-            setTextColor(mContext.getResources().getColor(R.color.b3));
+            viewHolder.llCalendarItem.setBackgroundResource(R.drawable.ic_calendar_today);
+            viewHolder.setTextColor(mContext.getResources().getColor(R.color.b3));
         }
     }
 
-    /**
-     * 设置当前星期
-     * @param week
-     */
-    private void setWeek(String week) {
-        tvWeek.setText(week);
-    }
+    public class DefaultDateViewHolder {
+        private ViewFactory mViewFactory;
 
-    /**
-     * 设置当前日期
-     * @param day
-     */
-    private void setDay(String day) {
-        tvDay.setText(day);
-    }
+        TextView tvWeek;
+        TextView tvDay;
+        TextView tvMonth;
+        LinearLayout llCalendarItem;
 
-    /**
-     * 设置当前月份
-     * @param month
-     */
-    private void setMonth(String month) {
-        tvMonth.setText(month);
-    }
+        DefaultDateViewHolder(View itemView) {
+            if (itemView == null) {
+                throw new IllegalArgumentException("itemView may not be null");
+            }
 
-    /**
-     * 设置字体颜色
-     * @param color
-     */
-    private void setTextColor(int color) {
-        tvWeek.setTextColor(color);
-        tvDay.setTextColor(color);
-        tvMonth.setTextColor(color);
+            mViewFactory = ViewFactory.getInstance(mContext);
+            llCalendarItem = mViewFactory.getView(itemView, R.id.ll_calendar_item);
+            tvWeek = mViewFactory.getView(itemView, R.id.tv_week);
+            tvDay = mViewFactory.getView(itemView, R.id.tv_day);
+            tvMonth = mViewFactory.getView(itemView, R.id.tv_month);
+        }
+
+        /**
+         * 设置字体颜色
+         * @param color
+         */
+        private void setTextColor(int color) {
+            tvWeek.setTextColor(color);
+            tvDay.setTextColor(color);
+            tvMonth.setTextColor(color);
+        }
     }
 }

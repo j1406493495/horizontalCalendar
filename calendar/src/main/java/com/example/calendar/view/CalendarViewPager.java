@@ -6,6 +6,8 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+
 import com.blankj.utilcode.util.TimeUtils;
 import com.example.calendar.adapter.BaseItemAdapter;
 import com.example.calendar.listener.CalendarListener;
@@ -24,7 +26,6 @@ public class CalendarViewPager extends ViewPager{
     
     private Context mContext;
     private CalendarListener mCalendarListener;
-    private BaseItemAdapter mBaseItemAdapter;
     private MyPageAdapter mPageAdapter;
     private Date mSelectedDate;
     private ArrayList<CalendarView> mCalendarViewList = new ArrayList<>();
@@ -73,11 +74,14 @@ public class CalendarViewPager extends ViewPager{
     private void initView() {
         for (int i = 0; i < 3; i++) {
             CalendarView calendarView = new CalendarView(mContext);
-            calendarView.setAdapter(mBaseItemAdapter);
             calendarView.setNotifyListener(new NotifyListener() {
                 @Override
                 public void onDateClick(Date date) {
-                    onDateSelectedChanged(date);
+                    if (date != null) {
+                        onDateSelectedChanged(date);
+                    } else {
+                        mPageAdapter.notifyDataSetChanged();
+                    }
                 }
             });
             mCalendarViewList.add(calendarView);
@@ -157,10 +161,13 @@ public class CalendarViewPager extends ViewPager{
 
     /**
      * 自定义日期item布局
-     * @param baseItemAdapter
+     * @param baseAdapter
      */
-    public void setAdapter(BaseItemAdapter baseItemAdapter) {
-        mBaseItemAdapter = baseItemAdapter;
+    public void setItemAdapter(BaseItemAdapter baseAdapter) {
+        for (CalendarView calendarView : mCalendarViewList) {
+            calendarView.setAdapter(baseAdapter);
+        }
+        mPageAdapter.notifyDataSetChanged();
     }
 
     public class MyPageAdapter extends PagerAdapter {

@@ -1,16 +1,13 @@
 package com.example.calendar.view;
 
 import android.content.Context;
-import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 import com.blankj.utilcode.util.TimeUtils;
-import com.example.calendar.R;
 import com.example.calendar.adapter.BaseItemAdapter;
 import com.example.calendar.adapter.ItemAdapterState;
 import com.example.calendar.listener.NotifyListener;
-import com.example.calendar.utils.ViewFactory;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -21,10 +18,9 @@ import java.util.Date;
 public class CalendarView extends LinearLayout{
     private static final String TAG = "CalendarView";
 
-    private Context mContext;
-    private ViewFactory mViewFactory;
-    private ArrayList<CalendarItemView> mItemViewList = new ArrayList<>();
-
+    private BaseItemAdapter mBaseAdapter;
+    private NotifyListener mNotifyListener;
+    private ArrayList<Date> mDates = new ArrayList<>();
 
     public CalendarView(Context context) {
         this(context, null);
@@ -36,21 +32,21 @@ public class CalendarView extends LinearLayout{
 
     public CalendarView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mContext = context;
-        initView();
+        setOrientation(HORIZONTAL);
     }
 
-    private void initView() {
-        mViewFactory = ViewFactory.getInstance(mContext);
-        View view = inflate(mContext, R.layout.view_calendar, this);
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int measureWidth = MeasureSpec.getSize(widthMeasureSpec);
 
-        mItemViewList.add((CalendarItemView) mViewFactory.getView(view, R.id.mon));
-        mItemViewList.add((CalendarItemView) mViewFactory.getView(view, R.id.tue));
-        mItemViewList.add((CalendarItemView) mViewFactory.getView(view, R.id.wed));
-        mItemViewList.add((CalendarItemView) mViewFactory.getView(view, R.id.thu));
-        mItemViewList.add((CalendarItemView) mViewFactory.getView(view, R.id.fri));
-        mItemViewList.add((CalendarItemView) mViewFactory.getView(view, R.id.sat));
-        mItemViewList.add((CalendarItemView) mViewFactory.getView(view, R.id.sun));
+        int count = getChildCount();
+        for (int i = 0; i < count; i++) {
+            LayoutParams childLayoutParams = (LayoutParams) getChildAt(i).getLayoutParams();
+            int childWidth = measureWidth / count - childLayoutParams.leftMargin - childLayoutParams.rightMargin;
+            int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(childWidth, MeasureSpec.EXACTLY);
+            getChildAt(i).measure(childWidthMeasureSpec, heightMeasureSpec);
+        }
     }
 
     private boolean isDateEqual(Date firstDate, Date secondDate) {
@@ -60,15 +56,37 @@ public class CalendarView extends LinearLayout{
     }
 
     public void setNotifyListener(NotifyListener notifyListener) {
-        for (CalendarItemView calendarItemView : mItemViewList) {
-            calendarItemView.setNotifyListener(notifyListener);
+        mNotifyListener = notifyListener;
+    }
+
+    public void setAdapter(BaseItemAdapter baseAdapter) {
+        mBaseAdapter = baseAdapter;
+    }
+
+    private void buildViews() {
+        int count = mBaseAdapter.getCount();
+        removeAllViews();
+        for (int i = 0; i < count; i++) {
+            final int pos = i;
+            View view = mBaseAdapter.getView(i, null, this);
+            view.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mNotifyListener != null && mDates.size() > pos) {
+                        mNotifyListener.onDateClick(mDates.get(pos));
+                    }
+                }
+            });
+            addView(view, i);
         }
     }
 
-    public void setAdapter(BaseItemAdapter baseItemAdapter) {
-        for (CalendarItemView calendarItemView : mItemViewList) {
-            calendarItemView.setAdapter(baseItemAdapter);
+    @Override
+    protected void onAttachedToWindow() {
+        if (mBaseAdapter != null) {
+            buildViews();
         }
+        super.onAttachedToWindow();
     }
 
     /**
@@ -77,17 +95,21 @@ public class CalendarView extends LinearLayout{
      * @param position 日期位于第几周
      */
     public void setDates(ArrayList<Date> dateList, int position, Date selectDate) {
+        mDates.clear();
         int realPosition = position * 7;
         for (int i = 0; i < 7; i++) {
             Date date = dateList.get(realPosition + i);
+            mDates.add(date);
 
-            if (isDateEqual(date, selectDate)) {
-                mItemViewList.get(i).setDate(date, ItemAdapterState.STATE_SELECT);
-            } else {
-                if (TimeUtils.isToday(date)) {
-                    mItemViewList.get(i).setDate(date, ItemAdapterState.STATE_TODAY);
+            if (mBaseAdapter != null) {
+                if (isDateEqual(date, selectDate)) {
+                    mBaseAdapter.bindView(date, getChildAt(i), ItemAdapterState.STATE_SELECT);
                 } else {
-                    mItemViewList.get(i).setDate(date, ItemAdapterState.STATE_NORMAL);
+                    if (TimeUtils.isToday(date)) {
+                        mBaseAdapter.bindView(date, getChildAt(i), ItemAdapterState.STATE_TODAY);
+                    } else {
+                        mBaseAdapter.bindView(date, getChildAt(i), ItemAdapterState.STATE_NORMAL);
+                    }
                 }
             }
         }
