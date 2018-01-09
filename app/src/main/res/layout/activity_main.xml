@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.calendar.view.CalendarViewPager
+    <com.woong.calendar.view.CalendarViewPager
         android:id="@+id/calendar_view_pager"
         android:layout_width="match_parent"
         android:layout_height="200dp"/>

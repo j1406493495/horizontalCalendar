@@ -1,4 +1,4 @@
-package com.example.calendar;
+package com.woong.calendar;
 
 import org.junit.Test;
 

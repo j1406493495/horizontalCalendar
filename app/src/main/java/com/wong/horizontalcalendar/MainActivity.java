@@ -1,15 +1,11 @@
-package com.example.wong.horizontalcalendar;
+package com.wong.horizontalcalendar;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Toast;
 
-import com.example.calendar.adapter.BaseItemAdapter;
-import com.example.calendar.listener.CalendarListener;
-import com.example.calendar.view.CalendarViewPager;
+import com.woong.calendar.listener.CalendarListener;
+import com.woong.calendar.view.CalendarViewPager;
 import java.util.Date;
 
 /**

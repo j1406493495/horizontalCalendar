@@ -1,4 +1,4 @@
-package com.example.calendar.view;
+package com.woong.calendar.view;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -6,12 +6,11 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 
 import com.blankj.utilcode.util.TimeUtils;
-import com.example.calendar.adapter.BaseItemAdapter;
-import com.example.calendar.listener.CalendarListener;
-import com.example.calendar.listener.NotifyListener;
+import com.woong.calendar.adapter.BaseItemAdapter;
+import com.woong.calendar.listener.CalendarListener;
+import com.woong.calendar.listener.NotifyListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;

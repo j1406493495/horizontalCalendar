@@ -1,4 +1,4 @@
-package com.example.calendar.adapter;
+package com.woong.calendar.adapter;
 
 import android.support.annotation.IntDef;
 

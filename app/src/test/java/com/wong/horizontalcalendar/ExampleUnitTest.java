@@ -1,4 +1,4 @@
-package com.example.wong.horizontalcalendar;
+package com.wong.horizontalcalendar;
 
 import org.junit.Test;
 

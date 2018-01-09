@@ -1,4 +1,4 @@
-package com.example.calendar;
+package com.woong.calendar;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

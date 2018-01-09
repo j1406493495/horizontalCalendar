@@ -1,20 +1,17 @@
-package com.example.wong.horizontalcalendar;
+package com.wong.horizontalcalendar;
 
 import android.content.Context;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.example.calendar.R;
-import com.example.calendar.adapter.BaseItemAdapter;
-import com.example.calendar.adapter.ItemAdapterState;
-import com.example.calendar.utils.ViewFactory;
+import com.woong.calendar.R;
+import com.woong.calendar.adapter.BaseItemAdapter;
+import com.woong.calendar.adapter.ItemAdapterState;
+import com.woong.calendar.utils.ViewFactory;
 
 import java.util.Date;
 
