@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         mDefaultItemAdapter = new DefaultItemAdapter(this);
 
         mCalendarViewPager = (CalendarViewPager) findViewById(R.id.calendar_view_pager);
+        mCalendarViewPager.setTotalWeeks(-20, 20);
         mCalendarViewPager.setItemAdapter(mDefaultItemAdapter);
         mCalendarViewPager.setCalendarListener(new CalendarListener() {
             @Override

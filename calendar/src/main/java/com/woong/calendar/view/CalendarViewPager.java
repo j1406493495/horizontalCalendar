@@ -44,7 +44,6 @@ public class CalendarViewPager extends ViewPager{
         mContext = context;
         initView();
         initData();
-        setCurrentItem(0 - mStartWeek);
         mPageAdapter.notifyDataSetChanged();
     }
 
@@ -91,6 +90,7 @@ public class CalendarViewPager extends ViewPager{
     }
 
     private void initData() {
+        setCurrentItem(0 - mStartWeek);
         mTotalCount = mEndWeek - mStartWeek + 1;
         mSelectedDate = TimeUtils.getNowDate();
         initAllDate();
@@ -120,6 +120,7 @@ public class CalendarViewPager extends ViewPager{
         Date dateEndAfter = calendar.getTime();
 
         Date date = dateStartBefore;
+        mDateList.clear();
         while (!date.after(dateEndAfter)) {
             mDateList.add(date);
             calendar.setTime(date);
@@ -128,15 +129,25 @@ public class CalendarViewPager extends ViewPager{
         }
     }
 
+    private void updateWeekDate() {
+        setCurrentItem(0 - mStartWeek);
+        mTotalCount = mEndWeek - mStartWeek + 1;
+        mSelectedDate = TimeUtils.getNowDate();
+        initAllDate();
+        mPageAdapter.notifyDataSetChanged();
+    }
+
     /**
      * 设置历史最大周数
      * @param startWeek
      */
     public void setStartWeek(int startWeek) {
         /** start before @startMonth month from now */
-        if (mStartWeek < 0) {
+        if (startWeek < 0) {
             mStartWeek = startWeek;
         }
+
+        updateWeekDate();
     }
 
     /**
@@ -145,9 +156,28 @@ public class CalendarViewPager extends ViewPager{
      */
     public void setEndWeek(int endWeek) {
         /** end after @endMonth month from now */
-        if (mEndWeek > 0) {
+        if (endWeek > 0) {
             mEndWeek = endWeek;
         }
+
+        updateWeekDate();
+    }
+
+    /**
+     * 设置历史最大周数和未来最大周数
+     * @param startWeek
+     * @param endWeek
+     */
+    public void setTotalWeeks(int startWeek, int endWeek) {
+        if (startWeek < 0) {
+            mStartWeek = startWeek;
+        }
+
+        if (endWeek > 0) {
+            mEndWeek = endWeek;
+        }
+
+        updateWeekDate();
     }
 
     /**
