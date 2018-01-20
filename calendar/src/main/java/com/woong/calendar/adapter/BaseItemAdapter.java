@@ -9,7 +9,7 @@ import java.util.Date;
  * Created by wong on 2018/1/6.
  * @author woong
  */
-public abstract class BaseItemAdapter extends BaseAdapter{
+public abstract class BaseItemAdapter extends BaseAdapter {
     Context mContext;
     public BaseItemAdapter(Context context) {
         mContext = context;
@@ -30,5 +30,10 @@ public abstract class BaseItemAdapter extends BaseAdapter{
     @Override
     public long getItemId(int position) {
         return 0;
+    }
+
+    @Override
+    public int getCount() {
+        return 7;
     }
 }

@@ -64,9 +64,8 @@ public class CalendarView extends LinearLayout{
     }
 
     private void buildViews() {
-        int count = mBaseAdapter.getCount();
         removeAllViews();
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < 7; i++) {
             final int pos = i;
             View view = mBaseAdapter.getView(i, null, this);
             view.setOnClickListener(new OnClickListener() {

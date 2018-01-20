@@ -32,11 +32,6 @@ public class DefaultItemAdapter extends BaseItemAdapter {
     }
 
     @Override
-    public int getCount() {
-        return 7;
-    }
-
-    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_calendar, parent, false);
         return view;
