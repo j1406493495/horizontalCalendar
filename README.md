@@ -6,7 +6,7 @@
 
 ## 效果图：
 
-![Screenrecorder-2018-01-21-15-44-46-314](/Users/wong/Downloads/Screenrecorder-2018-01-21-15-44-46-314.gif)
+![Screenrecorder-2018-01-21-15-44-46-314](https://github.com/j1406493495/horizontalCalendar/blob/master/gif/Screenrecorder-2018-01-21-15-44-46-314.gif?raw=true)
 
 
 
