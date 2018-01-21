@@ -6,15 +6,13 @@
 
 ## 效果图：
 
-![Screenrecorder-2018-01-21-15-44-46-314](https://github.com/j1406493495/horizontalCalendar/blob/master/gif/Screenrecorder-2018-01-21-15-44-46-314.gif?raw=true)
-
-
+![Screenrecorder-2018-01-21-15-44-46-314](https://github.com/j1406493495/horizontalCalendar/blob/master/gif/horizontalCalendar.gif?raw=true)
 
 ## gradle导入：
 
 > ```
 > dependencies {
->     compile "com.woong:HorizontalCalendar:0.1.0"
+>     compile "com.woong:HorizontalCalendar:1.0.0"
 > }
 > ```
 
@@ -98,3 +96,9 @@ mCustomCalendarViewPager.setItemAdapter(mCustomItemAdapter);
 mCustomCalendarViewPager.setTotalWeeks(-20, 20);
 ```
 
+
+
+---
+
+本文由 [Woong](http://woong.com.cn/) 创作，采用 [知识共享署名4.0](https://creativecommons.org/licenses/by/4.0/) 国际许可协议进行许可
+本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名
