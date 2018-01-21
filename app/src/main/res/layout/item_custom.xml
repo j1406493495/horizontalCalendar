@@ -1,23 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/ll_calendar_item"
-              android:layout_width="wrap_content"
+              android:id="@+id/ll_custom_item"
+              android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:layout_gravity="center"
               android:layout_marginBottom="10dp"
               android:layout_marginEnd="5dp"
               android:layout_marginStart="5dp"
               android:layout_marginTop="10dp"
               android:gravity="center"
               android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/tv_week"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textColor="@color/b3"
-        android:textSize="@dimen/f5"/>
 
     <TextView
         android:id="@+id/tv_day"
@@ -34,6 +25,7 @@
         android:id="@+id/tv_month"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:textColor="@color/b3"
         android:textSize="@dimen/f5"/>

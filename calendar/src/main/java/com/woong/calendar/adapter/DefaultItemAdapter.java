@@ -1,4 +1,4 @@
-package com.wong.horizontalcalendar;
+package com.woong.calendar.adapter;
 
 import android.content.Context;
 import android.text.format.DateFormat;
@@ -9,16 +9,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.woong.calendar.R;
-import com.woong.calendar.adapter.BaseItemAdapter;
-import com.woong.calendar.adapter.ItemAdapterState;
 import com.woong.calendar.utils.ViewFactory;
 
 import java.util.Date;
 
 /**
  * Created by wong on 2018/1/6.
+ * @author woong
  */
-
 public class DefaultItemAdapter extends BaseItemAdapter {
     private String formatWeek = "EEE";
     private String formatDay = "dd";
@@ -44,13 +42,13 @@ public class DefaultItemAdapter extends BaseItemAdapter {
         viewHolder.tvDay.setText(DateFormat.format(formatDay, date).toString());
         viewHolder.tvMonth.setText(DateFormat.format(formatMonth, date).toString());
 
-        if (dateState == ItemAdapterState.STATE_NORMAL) {
+        if (dateState == DateState.STATE_NORMAL) {
             viewHolder.llCalendarItem.setBackgroundResource(R.color.transparent);
             viewHolder.setTextColor(mContext.getResources().getColor(R.color.b3));
-        } else if (dateState == ItemAdapterState.STATE_SELECT) {
+        } else if (dateState == DateState.STATE_SELECT) {
             viewHolder.llCalendarItem.setBackgroundResource(R.drawable.ic_calendar_select);
             viewHolder.setTextColor(mContext.getResources().getColor(R.color.b7));
-        } else if (dateState == ItemAdapterState.STATE_TODAY) {
+        } else if (dateState == DateState.STATE_TODAY) {
             viewHolder.llCalendarItem.setBackgroundResource(R.drawable.ic_calendar_today);
             viewHolder.setTextColor(mContext.getResources().getColor(R.color.b3));
         }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.TimeUtils;
 import com.woong.calendar.adapter.BaseItemAdapter;
+import com.woong.calendar.adapter.DefaultItemAdapter;
 import com.woong.calendar.listener.CalendarListener;
 import com.woong.calendar.listener.NotifyListener;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class CalendarViewPager extends ViewPager{
     
     private Context mContext;
     private CalendarListener mCalendarListener;
+    private DefaultItemAdapter mDefaultItemAdapter;
     private MyPageAdapter mPageAdapter;
     private Date mSelectedDate;
     private ArrayList<CalendarView> mCalendarViewList = new ArrayList<>();
@@ -44,6 +46,7 @@ public class CalendarViewPager extends ViewPager{
         mContext = context;
         initView();
         initData();
+        setCurrentItem(0 - mStartWeek);
         mPageAdapter.notifyDataSetChanged();
     }
 
@@ -90,10 +93,12 @@ public class CalendarViewPager extends ViewPager{
     }
 
     private void initData() {
-        setCurrentItem(0 - mStartWeek);
         mTotalCount = mEndWeek - mStartWeek + 1;
         mSelectedDate = TimeUtils.getNowDate();
         initAllDate();
+
+        mDefaultItemAdapter = new DefaultItemAdapter(mContext);
+        setItemAdapter(mDefaultItemAdapter);
     }
 
     private void initAllDate() {

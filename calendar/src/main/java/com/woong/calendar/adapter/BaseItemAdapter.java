@@ -20,7 +20,7 @@ public abstract class BaseItemAdapter extends BaseAdapter {
      * @param date
      * @param dateState
      */
-    public abstract void bindView(Date date, View view, @ItemAdapterState int dateState);
+    public abstract void bindView(Date date, View view, @DateState int dateState);
 
     @Override
     public Object getItem(int position) {

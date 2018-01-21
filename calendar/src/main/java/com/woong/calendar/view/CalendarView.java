@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import com.blankj.utilcode.util.TimeUtils;
 import com.woong.calendar.adapter.BaseItemAdapter;
-import com.woong.calendar.adapter.ItemAdapterState;
+import com.woong.calendar.adapter.DateState;
 import com.woong.calendar.listener.NotifyListener;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,13 +39,16 @@ public class CalendarView extends LinearLayout{
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int measureWidth = MeasureSpec.getSize(widthMeasureSpec);
+        int measureHeight = MeasureSpec.getSize(heightMeasureSpec);
 
         int count = getChildCount();
         for (int i = 0; i < count; i++) {
             LayoutParams childLayoutParams = (LayoutParams) getChildAt(i).getLayoutParams();
             int childWidth = measureWidth / count - childLayoutParams.leftMargin - childLayoutParams.rightMargin;
+            int childHeight = measureHeight - childLayoutParams.topMargin - childLayoutParams.bottomMargin;
             int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(childWidth, MeasureSpec.EXACTLY);
-            getChildAt(i).measure(childWidthMeasureSpec, heightMeasureSpec);
+            int childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(childHeight, MeasureSpec.AT_MOST);
+            getChildAt(i).measure(childWidthMeasureSpec, childHeightMeasureSpec);
         }
     }
 
@@ -102,12 +105,12 @@ public class CalendarView extends LinearLayout{
 
             if (mBaseAdapter != null) {
                 if (isDateEqual(date, selectDate)) {
-                    mBaseAdapter.bindView(date, getChildAt(i), ItemAdapterState.STATE_SELECT);
+                    mBaseAdapter.bindView(date, getChildAt(i), DateState.STATE_SELECT);
                 } else {
                     if (TimeUtils.isToday(date)) {
-                        mBaseAdapter.bindView(date, getChildAt(i), ItemAdapterState.STATE_TODAY);
+                        mBaseAdapter.bindView(date, getChildAt(i), DateState.STATE_TODAY);
                     } else {
-                        mBaseAdapter.bindView(date, getChildAt(i), ItemAdapterState.STATE_NORMAL);
+                        mBaseAdapter.bindView(date, getChildAt(i), DateState.STATE_NORMAL);
                     }
                 }
             }

@@ -9,9 +9,9 @@ import java.lang.annotation.RetentionPolicy;
  * Created by wong on 2018/1/6.
  * @author woong
  */
-@IntDef({ItemAdapterState.STATE_NORMAL, ItemAdapterState.STATE_SELECT, ItemAdapterState.STATE_TODAY})
+@IntDef({DateState.STATE_NORMAL, DateState.STATE_SELECT, DateState.STATE_TODAY})
 @Retention(RetentionPolicy.SOURCE)
-public @interface ItemAdapterState {
+public @interface DateState {
     int STATE_NORMAL = 0;
     int STATE_SELECT = 1;
     int STATE_TODAY = 2;
