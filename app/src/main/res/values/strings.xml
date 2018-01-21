@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HorizontalCalendar</string>
+    <string name="default_item">默认Item日历</string>
+    <string name="custom_item">自定义Item日历</string>
 </resources>
