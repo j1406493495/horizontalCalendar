@@ -2,6 +2,8 @@
 
 **水平日历滚动控件，实现日历按周滚动，可自定义item布局。**
 
+项目地址：https://github.com/j1406493495/horizontalCalendar
+
 
 
 ## 效果图：
@@ -42,7 +44,15 @@ mDefaultCalendarViewPager.setCalendarListener(new CalendarListener() {
 
 自定义item布局：
 
-自定义ItemAdapter继承BaseItemAdapter，实现getView和bindView，具体实现如下所示：
+如何能够做到简单方便的自定义Item呢？
+
+根据效果图，你是否发现布局很类似listView，而在listView中我们使用Adapter自定义item布局，那么在当前项目中是否也可以使用这种形式呢？
+
+**答案是肯定的，并且这就是设计模式中的适配器模式。**
+
+自定义CustomItemAdapter继承BaseItemAdapter，而BaseItemAdapter在库中继承自BaseAdapter。
+
+实现BaseItemAdapter的getView和bindView方法，具体实现如下所示：
 
 ```
 public class CustomItemAdapter extends BaseItemAdapter {
