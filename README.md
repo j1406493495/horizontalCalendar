@@ -18,7 +18,22 @@
 > }
 > ```
 
+​	或者：
 
+> ```groovy
+> allprojects {
+> 	repositories {
+> 		...
+> 		maven { url 'https://jitpack.io' }
+> 	}
+> }
+> ```
+
+> ```groovy
+> dependencies {
+> 	implementation 'com.github.j1406493495:horizontalCalendar:1.0.1'
+> }
+> ```
 
 ## 接入使用：
 
