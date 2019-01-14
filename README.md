@@ -8,7 +8,9 @@
 
 ## 效果图：
 
-![Screenrecorder-2018-01-21-15-44-46-314](https://github.com/j1406493495/horizontalCalendar/blob/master/gif/horizontalCalendar.gif?raw=true)
+![](https://ws4.sinaimg.cn/large/006tNc79ly1fz5z1htlusg30820e8npe.gif)
+
+
 
 ## gradle导入：
 
